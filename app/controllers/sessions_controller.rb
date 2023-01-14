@@ -23,15 +23,15 @@ class SessionsController < ApplicationController
     else
       # if the user is already signed in, update the user's twitter info
       @user.update!(
-        params[:token],
-        params[:refresh_token],
-        params[:expires_at]
+        token: params[:token],
+        refresh_token: params[:refresh_token],
+        expires_at: params[:expires_at]
       )
     end
     
     session[:user_id] = @user.id
 
 
-    render json: user_info
+    redirect_to bookmarks_path
   end
 end

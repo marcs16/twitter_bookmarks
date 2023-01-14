@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  resources :bookmarks
   post "/auth/:provider/callback", to: "sessions#create"
   get "/auth/:provider/callback", to: "sessions#create"
   root "static_pages#root"
