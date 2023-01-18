@@ -16,36 +16,29 @@ class BookmarksController < ApplicationController
       @bookmarks.each do |bookmark|
         bookmark.fetch(:context_annotations, []).each do |annotation|
           key = context_annotation_key(annotation)
-          @folders[key] = "#{annotation[:entity][:name]}"
+          @folders[key] = (annotation[:entity][:name]).to_s
         end
       end
-      if params[:folder].present?
-        filter_by_folder
-      end
+      filter_by_folder if params[:folder].present?
     else
       # calling response message from response message file whi
-      render json: { message: ResponseMessages::NO_BOOKMARKS_FOUND}, status: :not_found
+      render json: { message: ResponseMessages::NO_BOOKMARKS_FOUND }, status: :not_found
     end
-    
-    
   end
-
 
   private
 
   def context_annotation_key(annotation)
-    [annotation[:domain][:id],annotation[:entity][:id]].join('-')
+    [annotation[:domain][:id], annotation[:entity][:id]].join('-')
   end
 
   def filter_by_folder
-   # here it will filter the bookmarks by folder and show only the bookmarks of that folder
-    new_bookmarks = [] 
+    # here it will filter the bookmarks by folder and show only the bookmarks of that folder
+    new_bookmarks = []
     @bookmarks.each do |bookmark|
       bookmark.fetch(:context_annotations, []).each do |annotation|
         key = context_annotation_key(annotation)
-        if key == params[:folder]
-          new_bookmarks << bookmark
-        end
+        new_bookmarks << bookmark if key == params[:folder]
       end
     end
     @bookmarks = new_bookmarks
