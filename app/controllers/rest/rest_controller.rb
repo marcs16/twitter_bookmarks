@@ -53,9 +53,13 @@ module Rest
     end
 
     # this method needs to be overriden in the inheriting class
-    def set_base_url; end
+    def set_base_url
+      raise NotImplementedError, 'You need to override this method in the inheriting class'
+    end
 
     # this method needs to be overriden in the inheriting class
-    def headers; end
+    def headers
+      raise NotImplementedError, 'You need to override this method in the inheriting class'
+    end
   end
 end
