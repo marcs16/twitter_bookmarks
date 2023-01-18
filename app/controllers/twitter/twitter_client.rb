@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 module Twitter
   class TwitterClient < Rest::RestController
     def initialize(user)
