@@ -35,4 +35,10 @@ class SessionsController < ApplicationController
 
     redirect_to bookmarks_path
   end
+
+  def logout
+    current_user = nil
+    session[:user_id] = nil
+    redirect_to root_path
+  end
 end
