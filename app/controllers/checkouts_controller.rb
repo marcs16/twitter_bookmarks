@@ -7,7 +7,7 @@ class CheckoutsController < ApplicationController
   def create
     # redirecto to checkout page
     if current_user.payment_processor.subscribed?
-      redirect_to "/bookmarks"
+      redirect_to '/bookmarks'
     else
       @checkout_session = current_user.payment_processor.checkout(
         mode: 'subscription',

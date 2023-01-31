@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   # root "articles#index"
   resource :billing
   resources :bookmarks
-  resource :checkout, only: [:show, :create]
+  resource :checkout, only: %i[show create]
   post '/auth/:provider/callback', to: 'sessions#create'
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/logout', to: 'sessions#logout'

@@ -3,7 +3,7 @@
 class BookmarksController < ApplicationController
   before_action :require_user!
   before_action :require_user_subscription!
-  
+
   def index
     client = Twitter::TwitterClient.new(current_user)
     @authors = {}

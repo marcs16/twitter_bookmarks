@@ -5,27 +5,27 @@ class ApplicationController < ActionController::Base
   before_action :check_login
 
   def require_user!
-    if !current_user
-      redirect_to root_path
-    end
+    return if current_user
+
+    redirect_to root_path
   end
 
   def require_user_subscription!
-    if !current_user.payment_processor.subscribed?
-      redirect_to "/checkout"
-    end
-  end
+    return if current_user.payment_processor.subscribed?
 
-  def check_login
-    if current_user && request.path == "/"
-      redirect_to logout_path
-    end
+    redirect_to '/checkout'
   end
 
   protected
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
+
+  def check_login
+    return unless current_user && request.path == '/'
+
+    redirect_to logout_path
   end
 
   def configure_permitted_parameters
