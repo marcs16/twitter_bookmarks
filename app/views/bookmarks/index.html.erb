@@ -1,12 +1,4 @@
-<div class="navbar">
-  <!-- create the navbar with the link to log out -->
-  <% if user_signed_in?%>
-    <%= current_user.email%>
-    <%= button_to("Log out", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }) %>
-  <% else %>
-    <%= link_to "Log in", new_user_session_path %>
-  <% end %>
-</div>
+
 <h1 class="text-lg font-bold pt-8">BookMarks</h1>
 
 

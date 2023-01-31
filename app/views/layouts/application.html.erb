@@ -13,6 +13,13 @@
   <body>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-2-3xl mx-auto">
+        <nav class="justify-end md:flex pt-4">
+          <%  if user_signed_in? %>
+            <p class="px-4"><%= current_user.email %></p><br>
+            <a class="underline px-4" href="/billing">Billing</a><br>
+            <%=link_to "Log out", logout_path, method: :get, class:"underline px-4"%>
+          <% end %>
+        </nav>
         <%= yield %>
       </div>
     </div>

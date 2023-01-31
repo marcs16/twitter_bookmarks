@@ -2,9 +2,24 @@
 
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  before_action :check_login
 
   def require_user!
-    redirect_to root_path unless current_user
+    if !current_user
+      redirect_to root_path
+    end
+  end
+
+  def require_user_subscription!
+    if !current_user.payment_processor.subscribed?
+      redirect_to "/checkout"
+    end
+  end
+
+  def check_login
+    if current_user && request.path == "/"
+      redirect_to logout_path
+    end
   end
 
   protected
